@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="baseLayout" template="/WEB-INF/layout/base.jsp">
+        <put-attribute name="title" value="..." />
+        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
+        <put-attribute name="content" value="..." />
+    </definition>
+    <definition name="home" extends="baseLayout">
+        <put-attribute name="title" value="Trang chủ" />
+        <put-attribute name="content" value="/WEB-INF/pages/index.jsp" />
+    </definition>
+    <definition name="login" extends="baseLayout">
+        <put-attribute name="title" value="Đăng nhập" />
+        <put-attribute name="content" value="/WEB-INF/pages/login.jsp" />
+    </definition>
+    <definition name="parkinglot" extends="baseLayout">
+        <put-attribute name="title" value="Địa điểm giữ xe" />
+        <put-attribute name="content" value="/WEB-INF/pages/parkinglot.jsp" />
+    </definition>
+    <definition name="parkinglotAddOrUpdate" extends="baseLayout">
+        <put-attribute name="title" value="Thêm địa điểm giữ xe" />
+        <put-attribute name="content" value="/WEB-INF/pages/parkinglotAddOrUpdate.jsp" />
+    </definition><!--
+    <definition name="stats" extends="baseLayout">
+        <put-attribute name="title" value="Thống kê doanh thu" />
+        <put-attribute name="content" value="/WEB-INF/pages/stats.jsp" />
+    </definition>-->
+</tiles-definitions>
