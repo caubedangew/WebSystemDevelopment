@@ -4,6 +4,7 @@
  */
 package com.huunghiathienvu.configs;
 
+import com.huunghiathienvu.formatters.ParkinglotFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -49,26 +50,26 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
         return resolver;
     }
 
-//    @Bean
-//    public MessageSource messageSource() {
-//        ResourceBundleMessageSource m = new ResourceBundleMessageSource();
-//        m.setBasename("messages");
-//
-//        return m;
-//    }
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource m = new ResourceBundleMessageSource();
+        m.setBasename("messages");
 
-//    @Bean(name = "validator")
-//    public LocalValidatorFactoryBean validator() {
-//        LocalValidatorFactoryBean bean
-//                = new LocalValidatorFactoryBean();
-//        bean.setValidationMessageSource(messageSource());
-//        return bean;
-//    }
-//
-//    @Override
-//    public Validator getValidator() {
-//        return validator();
-//    }
+        return m;
+    }
+
+    @Bean(name = "validator")
+    public LocalValidatorFactoryBean validator() {
+        LocalValidatorFactoryBean bean
+                = new LocalValidatorFactoryBean();
+        bean.setValidationMessageSource(messageSource());
+        return bean;
+    }
+
+    @Override
+    public Validator getValidator() {
+        return validator();
+    }
     
     
 
@@ -84,7 +85,7 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        
+        registry.addFormatter(new ParkinglotFormatter());
     }
 
     @Override

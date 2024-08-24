@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author ThienVu
  */
-@Service
+@Service("userDetailsService")
 public class UserServiceImplement implements UserService {
 
     @Autowired
@@ -73,7 +73,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User u = this.getUserByUsername(username);
         if (u == null) {

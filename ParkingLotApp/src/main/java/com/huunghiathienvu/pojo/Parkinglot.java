@@ -17,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -42,13 +44,20 @@ public class Parkinglot implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
+    
+    @Size(max = 255, min = 1, message="{parkinglot.address.max}")
     @Column(name = "address")
+    @NotNull(message="{parkinglot.field.null}")
     private String address;
+    
     @Column(name = "quantity")
+    @NotNull(message="{parkinglot.field.null}")
+    @Min(value=1, message="{parkinglot.quantity.min}")
     private Integer quantity;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Column(name = "price")
+    @NotNull(message="{parkinglot.field.null}")
+    @Min(value=1, message="{parkinglot.price.min}")
     private Double price;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parkinglotId")
     private Set<Parkingspace> parkingspaceSet;

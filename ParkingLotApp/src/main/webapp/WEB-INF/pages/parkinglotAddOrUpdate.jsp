@@ -7,20 +7,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<form:form method="post" action="/action_page.php" modelAttribute="parkinglot">
+
+<c:if test="${errMsg != null}">
+    <div class="alert alert-danger">${errMsg}</div>
+</c:if>
+
+<c:url value="/parkinglot" var="action" />
+
+<form:form method="post" action="${action}" modelAttribute="parkinglot">
     <div class="mb-3 mt-3">
         <label for="address" class="form-label">Address: </label>
-        <input type="text" class="form-control" id="address" placeholder="" name="address">
+        <form:input path="address" type="text" class="form-control" id="address" placeholder="" name="address" />
+        <form:errors path="address" cssClass="alert alert-danger" element="div" />
     </div>
     <div class="mb-3">
         <label for="quantity" class="form-label">Quantity:</label>
-        <input type="number" class="form-control" id="quantity" placeholder="" name="quantity">
+        <form:input path="quantity" type="number" class="form-control" id="quantity" placeholder="" name="quantity" />
+        <form:errors path="quantity" cssClass="alert alert-danger" element="div" />
     </div>
     <div class="mb-3">
         <label for="price" class="form-label">Price:</label>
-        <input type="number" class="form-control" id="price" placeholder="" name="price">
+        <form:input path="price" type="number" class="form-control" id="price" placeholder="" name="price" />
+        <form:errors path="price" cssClass="alert alert-danger" element="div" />
     </div>
     <button type="submit" class="mb-3 btn btn-primary">
+        <form:hidden path="id" />
         <c:choose>
             <c:when test="${parkinglot.id != null}" >
                 Cập nhật

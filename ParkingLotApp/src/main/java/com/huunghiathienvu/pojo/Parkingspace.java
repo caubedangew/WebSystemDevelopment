@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,6 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Parkingspace.findByStatus", query = "SELECT p FROM Parkingspace p WHERE p.status = :status")})
 public class Parkingspace implements Serializable {
 
+    @Size(max = 4)
+    @Column(name = "status")
+    private String status;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +45,6 @@ public class Parkingspace implements Serializable {
     private Integer id;
     @Column(name = "stt")
     private Integer stt;
-    @Column(name = "status")
-    private Integer status;
     @JoinColumn(name = "parkinglot_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Parkinglot parkinglotId;
@@ -69,13 +72,6 @@ public class Parkingspace implements Serializable {
         this.stt = stt;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public Parkinglot getParkinglotId() {
         return parkinglotId;
@@ -108,6 +104,14 @@ public class Parkingspace implements Serializable {
     @Override
     public String toString() {
         return "com.huunghiathienvu.pojo.Parkingspace[ id=" + id + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }
