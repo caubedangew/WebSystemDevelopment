@@ -4,6 +4,7 @@
  */
 package com.huunghiathienvu.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -60,6 +61,7 @@ public class Parkinglot implements Serializable {
     @Min(value=1, message="{parkinglot.price.min}")
     private Double price;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parkinglotId")
+    @JsonIgnore
     private Set<Parkingspace> parkingspaceSet;
 
     public Parkinglot() {

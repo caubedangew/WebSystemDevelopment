@@ -6,6 +6,7 @@ package com.huunghiathienvu.controllers;
 
 import com.huunghiathienvu.pojo.Parkinglot;
 import com.huunghiathienvu.service.ParkinglotService;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -30,8 +32,8 @@ public class ParkingLotController {
     private ParkinglotService parkinglotSer;
     
     @GetMapping("")
-    public String getListPage(Model model) {
-        model.addAttribute("parkinglot", parkinglotSer.getParkinglots());
+    public String getListPage(Model model, @RequestParam(required = false) Map<String, String> params) {
+        model.addAttribute("parkinglot", this.parkinglotSer.getParkinglots(params));
         return "parkinglot";
     }
     

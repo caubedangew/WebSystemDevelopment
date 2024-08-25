@@ -13,15 +13,15 @@
         <put-attribute name="title" value="Trang chủ" />
         <put-attribute name="content" value="/WEB-INF/pages/index.jsp" />
     </definition>
-    <definition name="login" extends="baseLayout">
-        <put-attribute name="title" value="Đăng nhập" />
-        <put-attribute name="content" value="/WEB-INF/pages/login.jsp" />
+    <definition name="stats" extends="baseLayout">
+        <put-attribute name="title" value="Thống kê" />
+        <put-attribute name="content" value="/WEB-INF/pages/stats.jsp" />
     </definition>
-    <definition name="item" template="/WEB-INF/layout/items.jsp" >
+<!--    <definition name="item" template="/WEB-INF/layout/items.jsp" >
         <put-attribute name="itemName" value="" cascade="true" />
         <put-attribute name="itemEName" value="" cascade="true" />
         <put-list-attribute name="fields" cascade="true" />
-    </definition>
+    </definition>-->
     <definition name="parkinglot" extends="baseLayout">
         <put-attribute name="title" value="Địa điểm giữ xe" />
         <put-attribute name="content" value="/WEB-INF/pages/parkinglot.jsp" />
@@ -44,6 +44,14 @@
     <definition name="parkingspaceAddOrUpdate" extends="baseLayout">
         <put-attribute name="title" value="Thêm vị trí đậu xe" />
         <put-attribute name="content" value="/WEB-INF/pages/parkingspaceAddOrUpdate.jsp" />
+    </definition>
+    <definition name="receipt" extends="baseLayout">
+        <put-attribute name="title" value="Hóa đơn" />
+        <put-attribute name="content" value="/WEB-INF/pages/receipt.jsp" />
+    </definition>
+    <definition name="receiptAddOrUpdate" extends="baseLayout">
+        <put-attribute name="title" value="Thêm hóa đơn" />
+        <put-attribute name="content" value="/WEB-INF/pages/receiptAddOrUpdate.jsp" />
     </definition>
     <!--
     <definition name="stats" extends="baseLayout">

@@ -5,7 +5,6 @@
 package com.huunghiathienvu.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author ThienVu
  */
 @Controller
-public class LoginController {
-   @RequestMapping("/login")
-   public String login() {
-       return "login";
-   }
+public class UnauthenticatedController {
+    @RequestMapping("/deniedPage")
+    public String getDeniedPage() {
+        return "deniedPage";
+    }
 }

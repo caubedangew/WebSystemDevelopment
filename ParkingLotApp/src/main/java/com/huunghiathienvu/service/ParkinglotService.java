@@ -6,13 +6,14 @@ package com.huunghiathienvu.service;
 
 import com.huunghiathienvu.pojo.Parkinglot;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author ThienVu
  */
 public interface ParkinglotService {
-    List<Parkinglot> getParkinglots();
+    List<Parkinglot> getParkinglots(Map<String, String> params);
     Parkinglot getParkinglotById(int parkinglotId);
     void addOrUpdateParkinglot(Parkinglot pl);
     void deleteParkinglot(int parkinglotId);

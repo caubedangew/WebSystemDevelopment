@@ -7,6 +7,7 @@ package com.huunghiathienvu.controllers;
 import com.huunghiathienvu.pojo.Parkinglot;
 import com.huunghiathienvu.service.ParkinglotService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -38,8 +40,8 @@ public class ApiParkingLotController {
     
     @GetMapping("")
     @CrossOrigin
-    public ResponseEntity<List<Parkinglot>> getListParkinglot() {
-        List<Parkinglot> parkinglots = this.parkinglotSer.getParkinglots();
+    public ResponseEntity<List<Parkinglot>> getListParkinglot(@RequestParam(required = false) Map<String, String> params) {
+        List<Parkinglot> parkinglots = this.parkinglotSer.getParkinglots(params);
         return new ResponseEntity<>(parkinglots, HttpStatus.OK);
     }
     

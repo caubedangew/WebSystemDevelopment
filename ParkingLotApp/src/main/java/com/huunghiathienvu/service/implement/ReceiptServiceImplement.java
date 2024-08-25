@@ -7,6 +7,7 @@ package com.huunghiathienvu.service.implement;
 import com.huunghiathienvu.pojo.Receipt;
 import com.huunghiathienvu.repository.ReceiptRepository;
 import com.huunghiathienvu.service.ReceiptService;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,14 @@ public class ReceiptServiceImplement implements ReceiptService {
     }
 
     @Override
-    public List<Receipt> getCurrentUserReceipts(int userId) {
-        return this.receiptRepo.getCurrentUserReceipts(userId);
+    public List<Receipt> getCurrentUserReceipts(Map<String, String> params) {
+        return this.receiptRepo.getCurrentUserReceipts(params);
     }
 
     @Override
     public void addOrUpdateReceipt(Receipt r) {
+        r.setCreatedDate(r.getId() != null ? r.getCreatedDate() : new Date());
+        r.setUpdatedDate(new Date());
         this.receiptRepo.addOrUpdateReceipt(r);
     }
 

@@ -13,6 +13,7 @@ import java.util.Map;
  * @author ThienVu
  */
 public interface ParkingspaceRepository {
-    List<Parkingspace> getParkingspacesInParkinglot(Map<String, String> params);
+    List<Parkingspace> getParkingspaces(Map<String, String> params);
     void addOrUpdateParkingspace(Parkingspace ps);
+    Parkingspace getParkingspaceById(int parkingspaceId);
 }

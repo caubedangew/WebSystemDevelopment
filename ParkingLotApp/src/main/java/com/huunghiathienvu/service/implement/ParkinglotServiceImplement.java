@@ -8,6 +8,7 @@ import com.huunghiathienvu.pojo.Parkinglot;
 import com.huunghiathienvu.repository.ParkinglotRepository;
 import com.huunghiathienvu.service.ParkinglotService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,8 @@ public class ParkinglotServiceImplement implements ParkinglotService {
     }
 
     @Override
-    public List<Parkinglot> getParkinglots() {
-        return this.parkinglotRepo.getParkinglots();
+    public List<Parkinglot> getParkinglots(Map<String, String> params) {
+        return this.parkinglotRepo.getParkinglots(params);
     }
     
     

@@ -11,6 +11,7 @@ import com.huunghiathienvu.repository.UserRepository;
 import com.huunghiathienvu.service.UserService;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -56,7 +57,7 @@ public class UserServiceImplement implements UserService {
         u.setPassword(passEncoder.encode(params.get("password")));
         u.setFirstName(params.get("first_name"));
         u.setLastName(params.get("last_name"));
-        u.setUserRole("ROLE_USER");
+        u.setUserRole(params.get("user_role") != null? params.get("user_role") : "ROLE_USER");
 
         if (!avatar.isEmpty()) {
             try {
@@ -84,6 +85,11 @@ public class UserServiceImplement implements UserService {
         authorities.add(new SimpleGrantedAuthority(u.getUserRole()));
         return new org.springframework.security.core.userdetails.User(
                 u.getUsername(), u.getPassword(), authorities);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return this.userRepo.getAllUsers();
     }
 
 }

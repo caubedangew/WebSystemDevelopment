@@ -5,6 +5,8 @@
 package com.huunghiathienvu.configs;
 
 import com.huunghiathienvu.formatters.ParkinglotFormatter;
+import com.huunghiathienvu.formatters.ParkingspaceFormatter;
+import com.huunghiathienvu.formatters.UserFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -86,6 +88,9 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new ParkinglotFormatter());
+        registry.addFormatter(new ParkingspaceFormatter());
+        registry.addFormatter(new UserFormatter());
+        
     }
 
     @Override

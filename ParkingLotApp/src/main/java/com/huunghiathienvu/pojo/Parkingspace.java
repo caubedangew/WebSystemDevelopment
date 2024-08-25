@@ -5,7 +5,9 @@
 package com.huunghiathienvu.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,9 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Parkingspace.findByStt", query = "SELECT p FROM Parkingspace p WHERE p.stt = :stt"),
     @NamedQuery(name = "Parkingspace.findByStatus", query = "SELECT p FROM Parkingspace p WHERE p.status = :status")})
 public class Parkingspace implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parkingspaceId")
+    private Set<Receipt> receiptSet;
 
     @Size(max = 4)
     @Column(name = "status")
@@ -112,6 +119,15 @@ public class Parkingspace implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @XmlTransient
+    public Set<Receipt> getReceiptSet() {
+        return receiptSet;
+    }
+
+    public void setReceiptSet(Set<Receipt> receiptSet) {
+        this.receiptSet = receiptSet;
     }
     
 }

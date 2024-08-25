@@ -9,6 +9,8 @@ import { MyDispatchContext, MyUserContext } from './context/MyContext';
 import Header from './components/layout/Header';
 import { Container } from 'react-bootstrap';
 import Footer from './components/layout/Footer';
+import Login from './components/Users/Login';
+import Register from './components/Users/Register';
 
 function App() {
   const [user, dispatch] = useReducer(MyUserReducer, null);
@@ -19,9 +21,11 @@ function App() {
           <Header />
           <Container>
             <Routes>
-              <Route path="/" element={<Home />} />
               <Route path="/parkinglot" element={<Parkinglot />} />
+              <Route path="/" element={<Home />} />
               <Route path="/parkingspace" element={<Parkingspace />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           </Container>
           <Footer />

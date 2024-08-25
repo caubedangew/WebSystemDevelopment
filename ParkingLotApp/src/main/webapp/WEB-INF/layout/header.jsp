@@ -17,13 +17,21 @@
             <ul class="navbar-nav me-auto">
                 <s:authorize access="hasRole('ADMIN')">
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">Địa điểm giữ xe</a>
+                        <a class="nav-link" href="<c:url value="/parkinglot"/>">Địa điểm giữ xe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">Thống kê</a>
+                        <a class="nav-link" href="<c:url value="/parkingspace"/>">Vị trí đậu xe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)">Đăng xuất</a>
+                        <a class="nav-link" href="<c:url value="/receipt"/>">Hóa đơn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/stats" />">Thống kê</a>
+                    </li>
+                </s:authorize>
+                <s:authorize access="isAuthenticated()" >
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/logout" />">Đăng xuất</a>
                     </li>
                 </s:authorize>
             </ul>

@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface ReceiptService {
     List<Receipt> getAllReceipts(Map<String, String> params);
-    List<Receipt> getCurrentUserReceipts(int userId);
+    List<Receipt> getCurrentUserReceipts(Map<String, String> params);
     void addOrUpdateReceipt(Receipt r);
     void deleteReceipt(int receiptId);
     Receipt getReceiptByReceiptId(int receiptId);

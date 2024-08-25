@@ -6,6 +6,7 @@ package com.huunghiathienvu.repository.implement;
 
 import com.huunghiathienvu.pojo.User;
 import com.huunghiathienvu.repository.UserRepository;
+import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,13 @@ public class UserRepositoryImplement implements UserRepository {
         s.save(u);
         
         return u;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        Session s = this.factory.getObject().getCurrentSession();
+        
+        Query q = s.createNamedQuery("User.findAll");
+        return q.getResultList();
     }
 }

@@ -22,13 +22,18 @@ public class ParkingspaceServiceImplement implements ParkingspaceService{
     private ParkingspaceRepository parkingspaceRepo;
 
     @Override
-    public List<Parkingspace> getParkingspacesInParkinglot(Map<String, String> params) {
-        return this.parkingspaceRepo.getParkingspacesInParkinglot(params);
+    public List<Parkingspace> getParkingspaces(Map<String, String> params) {
+        return this.parkingspaceRepo.getParkingspaces(params);
     }
 
     @Override
     public void addOrUpdateParkingspace(Parkingspace ps) {
         this.parkingspaceRepo.addOrUpdateParkingspace(ps);
+    }
+
+    @Override
+    public Parkingspace getParkingspaceById(int parkingspaceId) {
+        return this.parkingspaceRepo.getParkingspaceById(parkingspaceId);
     }
     
 }

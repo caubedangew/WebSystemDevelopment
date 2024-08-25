@@ -28,7 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @author ThienVu
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
+@CrossOrigin
 public class ApiUserController {
 
     @Autowired
@@ -37,7 +38,6 @@ public class ApiUserController {
     private UserService userService;
 
     @PostMapping("/login")
-    @CrossOrigin
     public ResponseEntity<String> login(@RequestBody User user) {
         if (this.userService.authUser(user.getUsername(), user.getPassword()) == true) {
             String token = this.jwtService.generateTokenLogin(user.getUsername());
@@ -52,14 +52,16 @@ public class ApiUserController {
     @PostMapping(path = "/register", 
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    @CrossOrigin
-    public ResponseEntity<User> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
-        User user = this.userService.addUser(params, avatar);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public ResponseEntity<?> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+        if (this.userService.getUserByUsername(params.get("username")) != null) {
+            User user = this.userService.addUser(params, avatar);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
+            
+        return new ResponseEntity<>("Can't create your account", HttpStatus.BAD_REQUEST);
     }
     
     @GetMapping(path = "/current-user", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<User> details(Principal user) {
         User u = this.userService.getUserByUsername(user.getName());
         return new ResponseEntity<>(u, HttpStatus.OK);

@@ -25,7 +25,7 @@
                 <td>${p.id}</td>
                 <td>${p.stt}</td>
                 <td>${p.status}</td>
-                <td>${p.parkinglotId.id}</td>
+                <td>${p.parkinglotId.address}</td>
                 <c:url value="/api/parkingspace/${p.id}" var="url"/>
                 <td><a class="btn btn-success" href="<c:url value="/parkingspace/${p.id}" />" >&orarr;</a></td>
                 <td><button class="btn btn-danger" onclick="deleteItem('${url}', ${p.id}, 'parkingspace')">&times;</button></td>

@@ -27,7 +27,7 @@ public class ApiParkingspaceController {
     
     @GetMapping("")
     public ResponseEntity<List<Parkingspace>> getParkingspaces (Map<String, String> params) {
-        List<Parkingspace> parkingspaces = this.parkingspaceSer.getParkingspacesInParkinglot(params);
+        List<Parkingspace> parkingspaces = this.parkingspaceSer.getParkingspaces(params);
         
         return new ResponseEntity<>(parkingspaces, HttpStatus.OK);
     }

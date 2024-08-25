@@ -24,22 +24,38 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class ParkingspaceRepositoryImplement implements ParkingspaceRepository{
+public class ParkingspaceRepositoryImplement implements ParkingspaceRepository {
+
+    private static final int PAGE_SIZE = 4;
     @Autowired
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Parkingspace> getParkingspacesInParkinglot(Map<String, String> params) {
+    public List<Parkingspace> getParkingspaces(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder builder = s.getCriteriaBuilder();
         CriteriaQuery<Parkingspace> query = builder.createQuery(Parkingspace.class);
         Root root = query.from(Parkingspace.class);
-        
-        String parkinglotId = params.get("parkinglotId");
-        if (parkinglotId != null)
-            query.where(builder.equal(root.get("parkinglotId"), Integer.parseInt(parkinglotId)));
-        
+
+        if (params != null) {
+            String parkinglotId = params.get("parkinglotId");
+            if (parkinglotId != null)
+                query.where(builder.equal(root.get("parkinglotId"), Integer.parseInt(parkinglotId)));
+        }
+
         Query q = s.createQuery(query);
+
+        if (params != null) {
+            String page = params.get("page");
+            if (page != null && !page.isEmpty()) {
+                int p = Integer.parseInt(page);
+                int start = (p - 1) * PAGE_SIZE;
+
+                q.setFirstResult(start);
+                q.setMaxResults(PAGE_SIZE);
+            }
+        }
+
         return q.getResultList();
     }
 
@@ -48,5 +64,12 @@ public class ParkingspaceRepositoryImplement implements ParkingspaceRepository{
         Session s = this.factory.getObject().getCurrentSession();
         s.merge(ps);
     }
-    
+
+    @Override
+    public Parkingspace getParkingspaceById(int parkingspaceId) {
+        Session s = factory.getObject().getCurrentSession();
+
+        return s.get(Parkingspace.class, parkingspaceId);
+    }
+
 }

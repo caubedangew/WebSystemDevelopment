@@ -1,11 +1,15 @@
-const BASE_URL = 'http://localhost:8080/api/';
+import axios from "axios";
+import cookie from "react-cookies";
+
+
+const BASE_URL = 'http://localhost:8080/api';
 
 export const endpoints = {
     'parkinglot': '/parkinglot',
-    'parkingspace': (parkinglotId) => `/parkingspace/${parkinglotId}`,
-    'login': '/login',
-    'current-user': '/current-user',
-    'register': '/register'
+    'parkingspace': (parkinglotId) => `/parkingspace?parkinglotId=${parkinglotId}`,
+    'login': '/users/login',
+    'current-user': '/users/current-user',
+    'register': '/users/register'
 }
 
 export const authAPIs = () => {

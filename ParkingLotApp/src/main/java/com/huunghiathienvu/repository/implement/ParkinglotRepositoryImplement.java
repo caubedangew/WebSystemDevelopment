@@ -6,7 +6,13 @@ package com.huunghiathienvu.repository.implement;
 
 import com.huunghiathienvu.pojo.Parkinglot;
 import com.huunghiathienvu.repository.ParkinglotRepository;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ParkinglotRepositoryImplement implements ParkinglotRepository{
+    private static final int PAGE_SIZE = 5;
     @Autowired
     private LocalSessionFactoryBean factory;
 
@@ -45,9 +52,34 @@ public class ParkinglotRepositoryImplement implements ParkinglotRepository{
     }
 
     @Override
-    public List<Parkinglot> getParkinglots() {
+    public List<Parkinglot> getParkinglots(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("Parkinglot.findAll");
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery query = builder.createQuery(Parkinglot.class);
+        Root root = query.from(Parkinglot.class);
+        
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+            String address = params.get("address");
+            if (address != null)
+                predicates.add(builder.like(root.get("address"), String.format("%%%s%%", address)));
+            
+            query.where(predicates.toArray(Predicate[]::new));
+        }
+        
+        Query q = s.createQuery(query);
+        
+        if (params != null) {
+            String page = params.get("page");
+            if (page != null && !page.isEmpty()){
+                int p = Integer.parseInt(page);
+                int start = (p - 1) * PAGE_SIZE;
+                
+                q.setFirstResult(start);
+                q.setMaxResults(PAGE_SIZE);
+            }
+        }
+            
         return q.getResultList();
     }
 }
