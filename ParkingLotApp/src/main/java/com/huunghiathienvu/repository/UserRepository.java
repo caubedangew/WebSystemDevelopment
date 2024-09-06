@@ -16,4 +16,5 @@ public interface UserRepository {
     boolean authUser(String username, String password);
     User addUser(User user);
     List<User> getAllUsers();
+    void updateUser(User user);
 }

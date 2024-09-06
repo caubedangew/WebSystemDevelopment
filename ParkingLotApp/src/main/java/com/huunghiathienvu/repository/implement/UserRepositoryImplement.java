@@ -39,7 +39,7 @@ public class UserRepositoryImplement implements UserRepository {
     
     @Override
     public boolean authUser(String username, String password) {
-        User  u = this.getUserByUsername(username);
+        User u = this.getUserByUsername(username);
         
         return this.passEncoder.matches(password, u.getPassword());
     }
@@ -59,4 +59,12 @@ public class UserRepositoryImplement implements UserRepository {
         Query q = s.createNamedQuery("User.findAll");
         return q.getResultList();
     }
+
+    @Override
+    public void updateUser(User user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.merge(user);
+    }
+    
+    
 }

@@ -5,6 +5,7 @@
 package com.huunghiathienvu.repository.implement;
 
 import com.huunghiathienvu.pojo.Receipt;
+import com.huunghiathienvu.repository.ParkinglotRepository;
 import com.huunghiathienvu.repository.ReceiptRepository;
 import java.util.List;
 import java.util.Map;

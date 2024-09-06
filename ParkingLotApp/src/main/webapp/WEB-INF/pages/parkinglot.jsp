@@ -13,6 +13,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Thumbnail</th>
             <th>Address</th>
             <th>Quantity</th>
             <th>Price</th>
@@ -24,6 +25,7 @@
         <c:forEach items="${parkinglot}" var="p">
             <tr id="parkinglot${p.id}">
                 <td>${p.id}</td>
+                <td><img src="${p.thumbnail}" width="180" /></td>
                 <td>${p.address}</td>
                 <td>${p.quantity}</td>
                 <td>${String.format("%,.0f", p.price)} VND</td>

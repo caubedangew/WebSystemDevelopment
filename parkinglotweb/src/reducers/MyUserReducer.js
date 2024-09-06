@@ -5,11 +5,10 @@ const MyUserReducer = (currentState, action) => {
         case "login":
             return action.payload;
         case "logout":
-            cookie.remove("access-token");
-            cookie.remove("user");
+            cookie.remove('access-token');
+            cookie.remove('user')
             return null;
     }
-
     return currentState;
 }
 

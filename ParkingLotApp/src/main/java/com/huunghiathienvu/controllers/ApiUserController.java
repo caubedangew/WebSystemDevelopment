@@ -10,6 +10,7 @@ import com.huunghiathienvu.service.UserService;
 import java.security.Principal;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin
 public class ApiUserController {
 
     @Autowired
@@ -38,32 +38,44 @@ public class ApiUserController {
     private UserService userService;
 
     @PostMapping("/login")
+    @CrossOrigin
     public ResponseEntity<String> login(@RequestBody User user) {
         if (this.userService.authUser(user.getUsername(), user.getPassword()) == true) {
             String token = this.jwtService.generateTokenLogin(user.getUsername());
-            
+
             return new ResponseEntity<>(token, HttpStatus.OK);
         }
 
         return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
     }
 
-    
-    @PostMapping(path = "/register", 
-            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
+    @PostMapping(path = "/register",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
-        if (this.userService.getUserByUsername(params.get("username")) != null) {
-            User user = this.userService.addUser(params, avatar);
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
-        }
-            
-        return new ResponseEntity<>("Can't create your account", HttpStatus.BAD_REQUEST);
+    @CrossOrigin
+    public ResponseEntity<User> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+        User user = this.userService.addUser(params, avatar);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
-    
+
     @GetMapping(path = "/current-user", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public ResponseEntity<User> details(Principal user) {
         User u = this.userService.getUserByUsername(user.getName());
         return new ResponseEntity<>(u, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/current-user/update",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
+    public ResponseEntity<String> changeProfile(@RequestParam Map<String, String> params,
+            @RequestPart MultipartFile avatar) {
+        try {
+            this.userService.changeUser(params, avatar);
+            return new ResponseEntity<>("Change successfully", HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

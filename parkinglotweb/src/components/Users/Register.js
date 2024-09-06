@@ -1,12 +1,14 @@
 import React from "react";
 import { Alert, Button, Form } from "react-bootstrap";
 import APIs, { endpoints } from "../../configs/APIs";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [user, setUser] = React.useState({});
     const [confirmErr, setConfirmErr] = React.useState(false);
     const [failErr, setFailErr] = React.useState(false);
+    const avatar = React.useRef();
+    const nav = useNavigate();
 
     let items = [{
         "label": "Tên",
@@ -19,6 +21,16 @@ const Register = () => {
         "placeholder": "Nhập họ và tên lót của bạn...",
         "field": "last_name"
     }, {
+        "label": "Email",
+        "type": "email",
+        "placeholder": "Nhập email...",
+        "field": "email"
+    },  {
+        "label": "Số điện thoại",
+        "type": "text",
+        "placeholder": "Nhập số điện thoại...",
+        "field": "phone_number"
+    },{
         "label": "Tên tài khoản",
         "type": "text",
         "placeholder": "Nhập tên tài khoản...",
@@ -33,15 +45,11 @@ const Register = () => {
         "type": "password",
         "placeholder": "Xác nhận mật khẩu đã nhập...",
         "field": "confirm"
-    }, {
-        "label": "Chọn ảnh đại diện",
-        "type": "file",
-        "field": "avatar"
     }]
 
     const setField = (value, field) => {
         setUser(current => {
-            return {...current, [field]: value}
+            return { ...current, [field]: value }
         })
     }
 
@@ -50,13 +58,15 @@ const Register = () => {
 
         try {
 
-            if (user.confirm != user.password)
+            if (user.confirm !== user.password)
                 setConfirmErr(true);
             else {
                 let form = new FormData();
                 for (let k in user)
                     if (k !== "confirm")
                         form.append(k, user[k]);
+
+                form.append('avatar', avatar.current.files[0]);
 
                 let res = await APIs.post(endpoints["register"], form, {
                     headers: {
@@ -69,15 +79,15 @@ const Register = () => {
                 if (res.status === 400)
                     setFailErr(true);
                 else if (res.status === 201)
-                    return <Navigate to="/login" />
+                    nav("/login");
             }
         } catch (ex) {
-            console.log(ex);
+            console.log(ex.response);
         }
     }
 
     return (
-        <Form method="post" onEncrypted="multipart/form-data" onSubmit={register}>
+        <Form method="post" onSubmit={register}>
             {confirmErr === true && <Alert className="alert alert-danger" >
                 Xác nhận mật khẩu không chính xác!!!
             </Alert>}
@@ -87,11 +97,15 @@ const Register = () => {
             </Alert>}
 
             {items.map(item =>
-                <Form.Group className="mb-3" controlId={`exampleForm.ControlInput${item.field}`}>
+                <Form.Group key={item.field} className="mb-3" controlId={`exampleForm.ControlInput${item.field}`}>
                     <Form.Label>{item.label}: </Form.Label>
-                    <Form.Control type={item.type} placeholder={item.placeholder} value={user[item.field]} onChange={e => setField(e.target.value, item.field)}/>
+                    <Form.Control type={item.type} placeholder={item.placeholder} value={user[item.field] || ''} onChange={e => setField(e.target.value, item.field)} />
                 </Form.Group>
             )}
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea7">
+                <Form.Label>Ảnh đại diện</Form.Label>
+                <Form.Control accept=".png,.jpg" type="file" ref={avatar} />
+            </Form.Group>
             <Button variant="primary" type="submit">Submit</Button>
         </Form>
     );

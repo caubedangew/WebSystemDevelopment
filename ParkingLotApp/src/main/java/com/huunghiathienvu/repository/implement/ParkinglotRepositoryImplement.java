@@ -18,13 +18,15 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author ThienVu
  */
 @Repository
+@Transactional
 public class ParkinglotRepositoryImplement implements ParkinglotRepository{
-    private static final int PAGE_SIZE = 5;
+    private static final int PAGE_SIZE = 3;
     @Autowired
     private LocalSessionFactoryBean factory;
 
@@ -65,7 +67,16 @@ public class ParkinglotRepositoryImplement implements ParkinglotRepository{
                 predicates.add(builder.like(root.get("address"), String.format("%%%s%%", address)));
             
             query.where(predicates.toArray(Predicate[]::new));
+            
+            String price = params.get("price");
+            if (price != null) {
+                if ("asc".equals(price))
+                    query.orderBy(builder.asc(root.get("price")));
+                else
+                    query.orderBy(builder.desc(root.get("price")));
+            }
         }
+        
         
         Query q = s.createQuery(query);
         

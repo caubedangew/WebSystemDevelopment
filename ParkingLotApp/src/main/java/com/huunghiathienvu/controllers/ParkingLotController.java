@@ -6,6 +6,7 @@ package com.huunghiathienvu.controllers;
 
 import com.huunghiathienvu.pojo.Parkinglot;
 import com.huunghiathienvu.service.ParkinglotService;
+import com.huunghiathienvu.service.ParkingspaceService;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class ParkingLotController {
     @Autowired
     private ParkinglotService parkinglotSer;
     
+    @Autowired
+    private ParkingspaceService parkingspaceSer;
+    
     @GetMapping("")
     public String getListPage(Model model, @RequestParam(required = false) Map<String, String> params) {
         model.addAttribute("parkinglot", this.parkinglotSer.getParkinglots(params));
@@ -51,10 +55,10 @@ public class ParkingLotController {
     
     @PostMapping("")
     public String createOrUpdate(Model model, 
-            @ModelAttribute(value="parkinglot") @Valid Parkinglot pl,
-            BindingResult rs) {
-        if (rs.hasErrors())
-            return "parkinglotAddOrUpdate";
+            @ModelAttribute(value="parkinglot") Parkinglot pl
+            ) {
+//        if (rs.hasErrors())
+//            return "parkinglotAddOrUpdate";
         try {
             this.parkinglotSer.addOrUpdateParkinglot(pl);
             return "redirect:/parkinglot";

@@ -5,6 +5,8 @@
     <class>com.huunghiathienvu.pojo.User</class>
     <class>com.huunghiathienvu.pojo.Parkinglot</class>
     <class>com.huunghiathienvu.pojo.Parkingspace</class>
+    <class>com.huunghiathienvu.pojo.Comment</class>
+    <class>com.huunghiathienvu.pojo.Receipt</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/parkinglotdb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

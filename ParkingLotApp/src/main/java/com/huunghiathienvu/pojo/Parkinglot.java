@@ -18,11 +18,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Parkinglot.findById", query = "SELECT p FROM Parkinglot p WHERE p.id = :id"),
     @NamedQuery(name = "Parkinglot.findByAddress", query = "SELECT p FROM Parkinglot p WHERE p.address = :address"),
     @NamedQuery(name = "Parkinglot.findByQuantity", query = "SELECT p FROM Parkinglot p WHERE p.quantity = :quantity"),
-    @NamedQuery(name = "Parkinglot.findByPrice", query = "SELECT p FROM Parkinglot p WHERE p.price = :price")})
+    @NamedQuery(name = "Parkinglot.findByPrice", query = "SELECT p FROM Parkinglot p WHERE p.price = :price"),
+    @NamedQuery(name = "Parkinglot.findByThumbnail", query = "SELECT p FROM Parkinglot p WHERE p.thumbnail = :thumbnail")})
 public class Parkinglot implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,24 +46,26 @@ public class Parkinglot implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
-    @Size(max = 255, min = 1, message="{parkinglot.address.max}")
+    @Size(max = 255)
     @Column(name = "address")
-    @NotNull(message="{parkinglot.field.null}")
     private String address;
-    
     @Column(name = "quantity")
-    @NotNull(message="{parkinglot.field.null}")
-    @Min(value=1, message="{parkinglot.quantity.min}")
     private Integer quantity;
-    
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
-    @NotNull(message="{parkinglot.field.null}")
-    @Min(value=1, message="{parkinglot.price.min}")
     private Double price;
+    @Size(max = 255)
+    @Column(name = "thumbnail")
+    private String thumbnail;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parkinglotId")
+    @JsonIgnore
+    private Set<Comment> commentSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parkinglotId")
     @JsonIgnore
     private Set<Parkingspace> parkingspaceSet;
+    
+    @Transient
+    private MultipartFile file;
 
     public Parkinglot() {
     }
@@ -103,6 +106,23 @@ public class Parkinglot implements Serializable {
         this.price = price;
     }
 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    @XmlTransient
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
+    }
+
     @XmlTransient
     public Set<Parkingspace> getParkingspaceSet() {
         return parkingspaceSet;
@@ -135,6 +155,20 @@ public class Parkinglot implements Serializable {
     @Override
     public String toString() {
         return "com.huunghiathienvu.pojo.Parkinglot[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }

@@ -11,24 +11,24 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <a href='' className='me-4 text-reset'>
+                        <Link to='#' className='me-4 text-reset'>
                             <MDBIcon fab icon="facebook-f" />
-                        </a>
-                        <a href='' className='me-4 text-reset'>
+                        </Link>
+                        <Link to='#' className='me-4 text-reset'>
                             <MDBIcon fab icon="twitter" />
-                        </a>
-                        <a href='' className='me-4 text-reset'>
+                        </Link>
+                        <Link to='#' className='me-4 text-reset'>
                             <MDBIcon fab icon="google" />
-                        </a>
-                        <a href='' className='me-4 text-reset'>
+                        </Link>
+                        <Link to='#' className='me-4 text-reset'>
                             <MDBIcon fab icon="instagram" />
-                        </a>
-                        <a href='' className='me-4 text-reset'>
+                        </Link>
+                        <Link to='#' className='me-4 text-reset'>
                             <MDBIcon fab icon="linkedin" />
-                        </a>
-                        <a href='' className='me-4 text-reset'>
+                        </Link>
+                        <Link to='#' className='me-4 text-reset'>
                             <MDBIcon fab icon="github" />
-                        </a>
+                        </Link>
                     </div>
                 </section>
 
@@ -49,48 +49,48 @@ const Footer = () => {
                             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
                                 <h6 className='text-uppercase fw-bold mb-4'>Products</h6>
                                 <p>
-                                    <a href='#!' className='text-reset'>
+                                    <Link to='#!' className='text-reset'>
                                         Angular
-                                    </a>
+                                    </Link>
                                 </p>
                                 <p>
-                                    <a href='#!' className='text-reset'>
+                                    <Link to='#!' className='text-reset'>
                                         React
-                                    </a>
+                                    </Link>
                                 </p>
                                 <p>
-                                    <a href='#!' className='text-reset'>
+                                    <Link to='#!' className='text-reset'>
                                         Vue
-                                    </a>
+                                    </Link>
                                 </p>
                                 <p>
-                                    <a href='#!' className='text-reset'>
+                                    <Link to='#!' className='text-reset'>
                                         Laravel
-                                    </a>
+                                    </Link>
                                 </p>
                             </MDBCol>
 
                             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
                                 <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
                                 <p>
-                                    <a href='#!' className='text-reset'>
+                                    <Link to='#!' className='text-reset'>
                                         Pricing
-                                    </a>
+                                    </Link>
                                 </p>
                                 <p>
-                                    <a href='#!' className='text-reset'>
+                                    <Link to='#!' className='text-reset'>
                                         Settings
-                                    </a>
+                                    </Link>
                                 </p>
                                 <p>
-                                    <a href='#!' className='text-reset'>
+                                    <Link to='#!' className='text-reset'>
                                         Orders
-                                    </a>
+                                    </Link>
                                 </p>
                                 <p>
-                                    <a href='#!' className='text-reset'>
+                                    <Link to='#!' className='text-reset'>
                                         Help
-                                    </a>
+                                    </Link>
                                 </p>
                             </MDBCol>
 

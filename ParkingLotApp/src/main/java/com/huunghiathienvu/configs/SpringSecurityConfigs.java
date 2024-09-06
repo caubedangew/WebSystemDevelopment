@@ -6,6 +6,7 @@ package com.huunghiathienvu.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.huunghiathienvu.components.CustomWebAuthenticationDetailsSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,24 +34,26 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     "com.huunghiathienvu.components"
 })
 @Order(2)
-public class SpringSecurityConfigs
-        extends WebSecurityConfigurerAdapter {
+public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    
+    @Autowired
+    private CustomWebAuthenticationDetailsSource authenticationDetailsSource;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     @Bean
     public Cloudinary cloudinary() {
         Cloudinary cloudinary
                 = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "dn84ltxow",
-                        "api_key", "251333144845721",
-                        "api_secret", "YFNzWK9pM2ktEb30zBbmIfMpczs",
+                        "cloud_name", "dxxwcby8l",
+                        "api_key", "448651448423589",
+                        "api_secret", "ftGud0r1TTqp0CGp5tjwNmkAm-A",
                         "secure", true));
         return cloudinary;
     }
@@ -58,24 +61,22 @@ public class SpringSecurityConfigs
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http)
             throws Exception {
-        http.formLogin()
-                .usernameParameter("username")
-                .passwordParameter("password");
-        http.formLogin().defaultSuccessUrl("/")
-                .failureUrl("/login?error");
+        http.formLogin().usernameParameter("username").passwordParameter("password").authenticationDetailsSource(authenticationDetailsSource);
+        http.formLogin().defaultSuccessUrl("/").failureUrl("/login?error");
+        
         http.logout().logoutSuccessUrl("/login");
-        http.exceptionHandling()
-                .accessDeniedPage("/");
-        http.authorizeRequests().antMatchers("/").permitAll()
+        
+        http.exceptionHandling().accessDeniedPage("/login?accessDenied");
+        
+        http.authorizeRequests().antMatchers("/").hasRole("ADMIN")
                 .antMatchers("/**").hasRole("ADMIN");
-
+        
         http.csrf().disable();
     }
 }

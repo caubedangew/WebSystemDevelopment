@@ -11,25 +11,29 @@ const Header = () => {
         <>
             <Navbar expand="lg" className="bg-body-tertiary bg-primary mb-3">
                 <Container>
-                    <Link to="/" className="navbar-brand text-light">Parking Lot Web</Link>
+                    <Nav.Link to="/" className="navbar-brand text-light">Parking Lot Web</Nav.Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Link className="nav-link text-light" to="/">Home</Link>
-                            <Link className="nav-link text-light" to="/parkinglot">Địa điểm giữ xe</Link>
-                            {user === null ? <>
-                                <Link className="nav-link text-light" to="/login">Đăng nhập</Link>
-                                <Link className="nav-link text-light" to="/register">Đăng ký</Link>
-                            </> : <>
-                                <Link className='nav-link text-white' to="/profile">
-                                    Chào {user}!
-                                </Link>
+                            <Nav.Link as={Link} className="text-light" to="/">Trang chủ</Nav.Link>
+                            <Nav.Link as={Link} className="text-light" to="/parkinglot">Địa điểm giữ xe</Nav.Link>
+
+                            {user === null ? <Nav className="ms-auto" >
+                                <Nav.Link as={Link} className="text-light" to="/login">Đăng nhập</Nav.Link>
+                                <Nav.Link as={Link} className="text-light" to="/register">Đăng ký</Nav.Link>
+                            </Nav> : <Nav className="ms-auto">
+                            <Nav.Link as={Link} className="text-light" to="/chat">Chat</Nav.Link>
+
+                                <Nav.Link as={Link} className='text-light' to="/profile">
+                                    <Image src={user.avatar} style={{ width: "1.8rem", marginRight: "0.4rem" }} />
+                                    {user.username}
+                                </Nav.Link>
                                 <Button variant='light' onClick={() => dispatch({ "type": "logout" })}>Đăng xuất</Button>
-                            </>}
+                            </Nav>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
-            </Navbar>
+            </Navbar >
         </>
     );
 }

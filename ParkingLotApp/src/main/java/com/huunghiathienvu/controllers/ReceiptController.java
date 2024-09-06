@@ -4,13 +4,10 @@
  */
 package com.huunghiathienvu.controllers;
 
-import com.huunghiathienvu.pojo.Parkinglot;
 import com.huunghiathienvu.pojo.Receipt;
-import com.huunghiathienvu.service.ParkinglotService;
 import com.huunghiathienvu.service.ParkingspaceService;
 import com.huunghiathienvu.service.ReceiptService;
 import com.huunghiathienvu.service.UserService;
-import java.util.Date;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +33,6 @@ public class ReceiptController {
     private UserService userSer;
     @Autowired
     private ParkingspaceService parkingspaceSer;
-    @Autowired
-    private ParkinglotService parkinglotSer;
 
     @GetMapping("")
     public String getReceipts(Model model) {
@@ -61,19 +56,12 @@ public class ReceiptController {
         model.addAttribute("user", this.userSer.getAllUsers());
         return "receiptAddOrUpdate";
     }
-
+    
     @PostMapping("")
-    public String postAddOrUpdate(Model model,
-            @ModelAttribute(value = "receipt") Receipt r,
-            BindingResult rs) {
-        if (rs.hasErrors()) {
-            return "receiptAddOrUpdate";
-        }
+    public String postAddOrUpdate(Model model, 
+            @ModelAttribute(value="receipt") Receipt receipt) {
         try {
-            Parkinglot pl = this.parkinglotSer.getParkinglotById(r.getParkingspaceId().getParkinglotId().getId());
-//            r.setTotalAmount(pl.getPrice() * r.getTimeInterval());
-
-            this.receiptSer.addOrUpdateReceipt(r);
+            this.receiptSer.addOrUpdateReceipt(receipt);
             return "redirect:/receipt";
         } catch (Exception ex) {
             model.addAttribute("errMsg", ex.getMessage());

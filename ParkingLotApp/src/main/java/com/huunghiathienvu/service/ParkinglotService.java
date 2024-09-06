@@ -7,6 +7,7 @@ package com.huunghiathienvu.service;
 import com.huunghiathienvu.pojo.Parkinglot;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *

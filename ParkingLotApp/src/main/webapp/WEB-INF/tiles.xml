@@ -17,24 +17,12 @@
         <put-attribute name="title" value="Thống kê" />
         <put-attribute name="content" value="/WEB-INF/pages/stats.jsp" />
     </definition>
-<!--    <definition name="item" template="/WEB-INF/layout/items.jsp" >
-        <put-attribute name="itemName" value="" cascade="true" />
-        <put-attribute name="itemEName" value="" cascade="true" />
-        <put-list-attribute name="fields" cascade="true" />
-    </definition>-->
     <definition name="parkinglot" extends="baseLayout">
         <put-attribute name="title" value="Địa điểm giữ xe" />
         <put-attribute name="content" value="/WEB-INF/pages/parkinglot.jsp" />
-<!--        <put-attribute name="itemName" value="địa điểm giữ xe" cascade="true" />
-        <put-attribute name="itemEName" value="parkinglot" cascade="true" />
-        <put-list-attribute name="fields" cascade="true" >
-            <add-attribute value="address" />
-            <add-attribute value="quantity" />
-            <add-attribute value="price" />
-        </put-list-attribute>-->
     </definition>
     <definition name="parkinglotAddOrUpdate" extends="baseLayout">
-        <put-attribute name="title" value="Thêm địa điểm giữ xe" />
+        <put-attribute name="title" value="Cập nhật địa điểm giữ xe" />
         <put-attribute name="content" value="/WEB-INF/pages/parkinglotAddOrUpdate.jsp" />
     </definition>
     <definition name="parkingspace" extends="baseLayout">
@@ -42,7 +30,7 @@
         <put-attribute name="content" value="/WEB-INF/pages/parkingspace.jsp" />
     </definition>
     <definition name="parkingspaceAddOrUpdate" extends="baseLayout">
-        <put-attribute name="title" value="Thêm vị trí đậu xe" />
+        <put-attribute name="title" value="Cập nhật vị trí đậu xe" />
         <put-attribute name="content" value="/WEB-INF/pages/parkingspaceAddOrUpdate.jsp" />
     </definition>
     <definition name="receipt" extends="baseLayout">
@@ -50,12 +38,31 @@
         <put-attribute name="content" value="/WEB-INF/pages/receipt.jsp" />
     </definition>
     <definition name="receiptAddOrUpdate" extends="baseLayout">
-        <put-attribute name="title" value="Thêm hóa đơn" />
+        <put-attribute name="title" value="Cập nhật hóa đơn" />
         <put-attribute name="content" value="/WEB-INF/pages/receiptAddOrUpdate.jsp" />
     </definition>
-    <!--
-    <definition name="stats" extends="baseLayout">
+    <definition name="comment" extends="baseLayout">
+        <put-attribute name="title" value="Cập nhật bình luận" />
+        <put-attribute name="content" value="/WEB-INF/pages/comment.jsp" />
+    </definition>
+    <definition name="commentAddOrUpdate" extends="baseLayout">
+        <put-attribute name="title" value="Cập nhật bình luận" />
+        <put-attribute name="content" value="/WEB-INF/pages/commentAddOrUpdate.jsp" />
+    </definition>
+    <definition name="result" extends="baseLayout" >
+        <put-attribute name="title" value="Result" />
+        <put-attribute name="content" value="/WEB-INF/pages/result.jsp" />
+    </definition>
+    <definition name="checkout" extends="baseLayout" >
+        <put-attribute name="title" value="Check out" />
+        <put-attribute name="content" value="/WEB-INF/pages/checkout.jsp" />
+    </definition>
+    <definition name="revenueStats" extends="baseLayout">
         <put-attribute name="title" value="Thống kê doanh thu" />
-        <put-attribute name="content" value="/WEB-INF/pages/stats.jsp" />
-    </definition>-->
+        <put-attribute name="content" value="/WEB-INF/pages/revenueStats.jsp" />
+    </definition>
+    <definition name="parkingStats" extends="baseLayout">
+        <put-attribute name="title" value="Thống kê về bãi đậu xe" />
+        <put-attribute name="content" value="/WEB-INF/pages/parkingStats.jsp" />
+    </definition>
 </tiles-definitions>

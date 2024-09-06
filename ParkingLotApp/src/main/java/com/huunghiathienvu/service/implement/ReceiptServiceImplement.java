@@ -4,8 +4,10 @@
  */
 package com.huunghiathienvu.service.implement;
 
+import com.huunghiathienvu.pojo.Parkinglot;
 import com.huunghiathienvu.pojo.Receipt;
 import com.huunghiathienvu.repository.ReceiptRepository;
+import com.huunghiathienvu.service.ParkinglotService;
 import com.huunghiathienvu.service.ReceiptService;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,9 @@ public class ReceiptServiceImplement implements ReceiptService {
     @Autowired
     private ReceiptRepository receiptRepo;
     
+    @Autowired
+    private ParkinglotService parkinglotSer;
+    
     @Override
     public List<Receipt> getAllReceipts(Map<String, String> params) {
         return this.receiptRepo.getAllReceipts(params);
@@ -34,8 +39,8 @@ public class ReceiptServiceImplement implements ReceiptService {
 
     @Override
     public void addOrUpdateReceipt(Receipt r) {
-        r.setCreatedDate(r.getId() != null ? r.getCreatedDate() : new Date());
-        r.setUpdatedDate(new Date());
+        Parkinglot pl = this.parkinglotSer.getParkinglotById(r.getParkingspaceId().getId());
+        r.setTotalAmount(r.getTimeInterval() * pl.getPrice());
         this.receiptRepo.addOrUpdateReceipt(r);
     }
 

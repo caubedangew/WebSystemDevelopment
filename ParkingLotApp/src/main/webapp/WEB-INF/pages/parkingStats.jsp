@@ -1,20 +1,21 @@
 <%-- 
-    Document   : stats
-    Created on : Aug 24, 2024, 10:04:56 PM
+    Document   : parkingStats
+    Created on : Sep 3, 2024, 2:39:25 PM
     Author     : ThienVu
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<h1 class="text-center text-primary mt-1">THỐNG KÊ DOANH THU</h1>
+<h1 class="text-center text-primary mt-1">Thống kê doanh thu từng sản phẩm</h1>
 
 <div class="row">
     <div class="col-md-5 col-12">
         <table class="table">
             <tr>
                 <th>Id</th>
-                <th>Tên sản phẩm</th>
-                <th>Tổng doanh thu</th>
+                <th>Bãi xe</th>
+                <th>Doanh thu</th>
             </tr>
             <c:forEach items="${revenues}" var="r">
                 <tr>
@@ -35,7 +36,7 @@
     let labels = [];
     let data = [];
     <c:forEach items="${revenues}" var="r">
-        labels.push('${r[1]}');
+        labels.push('${r[0]}');
         data.push(${r[2]});
     </c:forEach>
     

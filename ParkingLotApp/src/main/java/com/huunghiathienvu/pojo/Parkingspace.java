@@ -4,6 +4,7 @@
  */
 package com.huunghiathienvu.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -37,13 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Parkingspace.findByStatus", query = "SELECT p FROM Parkingspace p WHERE p.status = :status")})
 public class Parkingspace implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parkingspaceId")
-    private Set<Receipt> receiptSet;
-
-    @Size(max = 4)
-    @Column(name = "status")
-    private String status;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,8 +46,15 @@ public class Parkingspace implements Serializable {
     private Integer id;
     @Column(name = "stt")
     private Integer stt;
+    @Size(max = 4)
+    @Column(name = "status")
+    private String status;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parkingspaceId")
+    @JsonIgnore
+    private Set<Receipt> receiptSet;
     @JoinColumn(name = "parkinglot_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Parkinglot parkinglotId;
 
     public Parkingspace() {
@@ -79,6 +80,22 @@ public class Parkingspace implements Serializable {
         this.stt = stt;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @XmlTransient
+    public Set<Receipt> getReceiptSet() {
+        return receiptSet;
+    }
+
+    public void setReceiptSet(Set<Receipt> receiptSet) {
+        this.receiptSet = receiptSet;
+    }
 
     public Parkinglot getParkinglotId() {
         return parkinglotId;
@@ -111,23 +128,6 @@ public class Parkingspace implements Serializable {
     @Override
     public String toString() {
         return "com.huunghiathienvu.pojo.Parkingspace[ id=" + id + " ]";
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @XmlTransient
-    public Set<Receipt> getReceiptSet() {
-        return receiptSet;
-    }
-
-    public void setReceiptSet(Set<Receipt> receiptSet) {
-        this.receiptSet = receiptSet;
     }
     
 }

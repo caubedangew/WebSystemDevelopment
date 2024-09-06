@@ -6,10 +6,14 @@ const BASE_URL = 'http://localhost:8080/api';
 
 export const endpoints = {
     'parkinglot': '/parkinglot',
-    'parkingspace': (parkinglotId) => `/parkingspace?parkinglotId=${parkinglotId}`,
+    'parkingspace': `/parkingspace`,
     'login': '/users/login',
     'current-user': '/users/current-user',
-    'register': '/users/register'
+    'register': '/users/register',
+    'comment': '/comment',
+    'postComment': '/comment/add',
+    'delComment': (commentId) => `/comment/${commentId}`,
+    'updateUser': '/users/current-user/update'
 }
 
 export const authAPIs = () => {

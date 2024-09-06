@@ -17,7 +17,7 @@
 <form:form method="post" action="${action}" modelAttribute="receipt">
     <form:errors path="*" cssClass="alert alert-danger" element="div" />
     <div class="mb-3 mt-3">
-        <label for="userId" class="form-label">UserId: </label>
+        <label for="userId" class="form-label">User: </label>
         <form:select path="userId" class="form-select">
             <c:forEach items="${user}" var="u">
                 <c:choose>
@@ -55,9 +55,6 @@
     </div>
     <button type="submit" class="mb-3 btn btn-primary">
         <form:hidden path="id" />
-        <form:hidden path="createdDate" />
-        <form:hidden path="updatedDate" />
-        <form:hidden path="totalAmount" />
         <c:choose>
             <c:when test="${receipt.id != null}" >
                 Cập nhật
